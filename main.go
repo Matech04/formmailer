@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -31,12 +32,19 @@ func main() {
 
 	handler := c.Handler(http.DefaultServeMux)
 
-	log.Println("Server started on http://localhost:8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Domyślny port dla lokalnego rozwoju
+	}
+
+	// Użyj zmiennej port w logach i adresie serwera
+	log.Printf("Server started on http://0.0.0.0:%s", port)
 	server := &http.Server{
-		Addr:         ":8080",
+		Addr:         ":" + port, // Użyj zmiennej port
 		Handler:      handler,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
+
 	log.Fatal(server.ListenAndServe())
 }

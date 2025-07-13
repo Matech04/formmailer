@@ -81,7 +81,9 @@ func DefaultConfig() Config {
 		},
 		CORS: []string{
 			"http://localhost:4321",
+			"http://localhost:3000",
 			"https://www.custom-steel.eu",
+			"https://www.https://gmtechnics.com",
 		},
 	}
 
